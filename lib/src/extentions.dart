@@ -13,7 +13,7 @@ extension _Uint8ListExtension on Uint8List {
 
   bool isNotEqual(Uint8List other) {
     if (identical(this, other)) return false;
-    if (this != null && other == null) return true;
+    if (null == other) return true;
     int length = this.length;
     if (length != other.length) return true;
     for (int i = 0; i < length; i++) {
@@ -71,7 +71,7 @@ extension _Uint8ListExtension on Uint8List {
 
 extension _StringExtension on String {
   // Returns true if string is: null or empty
-  bool get isNullOrEmpty => this == null || this.isEmpty;
+  bool get isNullOrEmpty => this.isEmpty;
 
   // Converts UTF-16 string to bytes
   Uint8List toUtf16Bytes([Endian endian = Endian.big, bool bom = false]) {
@@ -108,7 +108,7 @@ extension _StringExtension on String {
   // Converts string to UTF-8 bytes
   List<int> toUtf8Bytes([bool bom = false]) {
     if (bom) {
-      Uint8List data = utf8.encode(this);
+      Uint8List data = utf8.encode(this) as Uint8List;
       Uint8List dataWithBom = Uint8List(data.length + 3)
         ..setAll(0, [0xEF, 0xBB, 0xBF])
         ..setRange(3, data.length + 3, data);
